@@ -64,11 +64,10 @@ const Work = () => {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
-                  {project.description && (
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-6 pointer-events-none">
-                      <p className="text-white text-center text-sm">{project.description}</p>
-                    </div>
-                  )}
+                  {/* Simple overlay with title on hover */}
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4 pointer-events-none">
+                    <h3 className="text-white text-xl font-bold text-center">{project.title}</h3>
+                  </div>
                 </div>
                 <h3 className="text-2xl font-bold mb-1 group-hover:underline">{project.title}</h3>
                 <p className="text-gray-600">{project.category}</p>
