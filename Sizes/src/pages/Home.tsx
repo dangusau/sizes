@@ -24,9 +24,9 @@ const Home = () => {
     "description": "SIZES is a creative agency blending design and development to create memorable digital products.",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "San Francisco",
-      "addressRegion": "CA",
-      "addressCountry": "US"
+      "addressLocality": "Kano",
+      "addressRegion": "Kano",
+      "addressCountry": "Nigeria"
     }
   }
 
