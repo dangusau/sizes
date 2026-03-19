@@ -118,10 +118,8 @@ const BlogPost = () => {
 
         <h1 className="text-4xl md:text-5xl font-bold mb-6">{post.title}</h1>
 
-        <div className="prose prose-lg max-w-none">
-          {post.content.split('\n').map((paragraph, i) => (
-            <p key={i} className="mb-4 text-gray-700">{paragraph}</p>
-          ))}
+        <div className="prose prose-lg max-w-none" style={{ whiteSpace: 'pre-wrap' }}>
+          {post.content}
         </div>
       </div>
     </motion.article>
