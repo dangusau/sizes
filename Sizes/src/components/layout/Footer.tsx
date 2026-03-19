@@ -29,8 +29,8 @@ const Footer = () => {
           <div>
             <h4 className="font-medium mb-4">Contact</h4>
             <ul className="space-y-2 text-gray-400">
-              <li>hello@sizes.com</li>
-              <li>San Francisco, CA</li>
+              <li>@sizes.com</li>
+              <li>Kano, Nigeria</li>
             </ul>
           </div>
         </div>
