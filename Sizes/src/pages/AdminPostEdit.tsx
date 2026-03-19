@@ -13,6 +13,7 @@ const AdminPostEdit = () => {
     featured_image: '',
     published: false,
   })
+  const [uploading, setUploading] = useState(false)
   const [loading, setLoading] = useState(false)
   const [fetching, setFetching] = useState(true)
   const [error, setError] = useState('')
@@ -48,6 +49,28 @@ const AdminPostEdit = () => {
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
     }))
+  }
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    const fileExt = file.name.split('.').pop()
+    const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`
+    const filePath = `blog/${fileName}`
+
+    const { error: uploadError } = await supabase.storage
+      .from('blog-images')
+      .upload(filePath, file)
+
+    if (uploadError) {
+      setError(uploadError.message)
+    } else {
+      const { data: urlData } = supabase.storage.from('blog-images').getPublicUrl(filePath)
+      setFormData(prev => ({ ...prev, featured_image: urlData.publicUrl }))
+    }
+    setUploading(false)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -132,14 +155,32 @@ const AdminPostEdit = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Featured Image URL</label>
-          <input
-            type="url"
-            name="featured_image"
-            value={formData.featured_image}
-            onChange={handleChange}
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
-          />
+          <label className="block text-sm font-medium mb-1">Featured Image</label>
+          <div className="space-y-3">
+            <div className="flex items-center gap-4">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                disabled={uploading}
+                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-black file:text-white hover:file:bg-gray-800"
+              />
+              {uploading && <span className="text-sm text-gray-500">Uploading...</span>}
+            </div>
+            <div className="text-sm text-gray-500">— OR —</div>
+            <input
+              type="url"
+              name="featured_image"
+              value={formData.featured_image}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+            />
+          </div>
+          {formData.featured_image && (
+            <div className="mt-2">
+              <img src={formData.featured_image} alt="Preview" className="h-20 w-20 object-cover rounded" />
+            </div>
+          )}
         </div>
 
         <div className="flex items-center">
@@ -159,7 +200,7 @@ const AdminPostEdit = () => {
         <div className="flex gap-4">
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || uploading}
             className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition disabled:opacity-50"
           >
             {loading ? 'Saving...' : 'Save Changes'}
