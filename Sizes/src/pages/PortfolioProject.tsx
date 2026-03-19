@@ -114,8 +114,8 @@ const PortfolioProject = () => {
 
         <p className="text-gray-600 mb-2">{project.category}</p>
 
-        <div className="prose prose-lg max-w-none mt-8">
-          <p className="text-gray-700">{project.description}</p>
+        <div className="prose prose-lg max-w-none mt-8" style={{ whiteSpace: 'pre-wrap' }}>
+          {project.description}
         </div>
       </div>
     </motion.article>
