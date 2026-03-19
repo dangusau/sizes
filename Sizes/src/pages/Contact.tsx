@@ -64,15 +64,15 @@ const Contact = () => {
             <div className="space-y-4 text-gray-600">
               <p>
                 <span className="font-medium text-black">Email:</span><br />
-                <a href="mailto:hello@sizes.com" className="hover:underline">hello@sizes.com</a>
+                <a href="mailto:hello@sizes.com" className="hover:underline">sizesnigeria.vercel.app</a>
               </p>
               <p>
                 <span className="font-medium text-black">Phone:</span><br />
-                <a href="tel:+1234567890" className="hover:underline">+1 (234) 567-890</a>
+                <a href="tel:+1234567890" className="hover:underline">+(234) 81555555</a>
               </p>
               <p>
                 <span className="font-medium text-black">Office:</span><br />
-                123 Creative Ave, San Francisco, CA 94105
+                Kano, Nigeria
               </p>
             </div>
 
